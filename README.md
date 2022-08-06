@@ -25,5 +25,5 @@ Candidato: Júlio César Almeida Soares
     - Termos de uso (SIM ou NAO)
 
 - Agora é so iniciar o servidor<br>
-	`python .manage.py runserver
+`python .manage.py runserver`
 
