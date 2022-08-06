@@ -42,10 +42,10 @@ Candidato: Júlio César Almeida Soares
  - [x] CA#05 - Mensagem de confirmação ou negação
 
 ### História de Usuário #3 - Página de Login *
- - [ ] CA#01 - Campos de login com CPF e senha
- - [ ] CA#02 - Validação de campos
- - [ ] CA#03 - Redirecionamento de login
- - [ ] CA#04 - Utilização do Sistema de Autenticação Django(UserCreationForm)
+ - [x] CA#01 - Campos de login com CPF e senha
+ - [x] CA#02 - Validação de campos
+ - [x] CA#03 - Redirecionamento de login
+ - [x] CA#04 - Utilização do Sistema de Autenticação Django(UserCreationForm)
 
 ### História de Usuário #4 - Administração da plataforma *
  - [ ] CA#01 - Command para inserir todas as áreas temáticas
