@@ -18,7 +18,7 @@
                         {% endif %}
                         {% if user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link btn btn-outline-danger" href="{% url 'dashboard' %}" role="button">Meus cursos</a></li>
-                            <li class="nav-item"><a class="nav-link btn btn-outline-danger" href="" role="button">Logout</a></li>
+                            <li class="nav-item"><a class="nav-link btn btn-outline-danger" href="{% url 'logout' %}" role="button">Logout</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link btn btn-outline-danger" href="{% url 'login' %}" role="button">Entrar</a></li>
                             <li class="nav-item"><a class="nav-link btn btn-outline-danger" href="{% url 'autocadastro' %}" role="button">Cadastre-se</a></li>
