@@ -50,7 +50,7 @@
                         </div>
                         <div class="card-footer bg-transparent border-danger text-center">
                             <div class="btn-group" role="group">
-                                <a class="btn btn-outline-danger" href="" role="button" type="button">Ver mais</a>
+                                <a class="btn btn-outline-danger" href="{% url 'info_curso' plano.id %}" role="button" type="button">Ver mais</a>
                                 {% if plano.status == 'APROVADO' %}
                                     <button class="btn btn-outline-success" disabled>Aprovado</button>
                                 {% elif plano.status == 'REPROVADO' %}

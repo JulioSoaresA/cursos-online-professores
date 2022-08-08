@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from cursos.forms.planoCursoForm import NovoPlanoCurso
 from .models import NovoPlano
@@ -36,3 +36,9 @@ def plano_de_curso(request):
 
 def campo_numerico(campo):
     return not campo.isnumeric()
+
+
+def info_curso(request, plano_id):
+    curso = get_object_or_404(NovoPlano.objects.all().filter(id=plano_id, id_professor=request.user.pk))
+    contexto = {'curso': curso}
+    return render(request, 'cursos/info_curso.html', contexto)

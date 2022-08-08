@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="container mt-2 col-8">
+        {% include 'partials/_menu.html' %}
+        <lu class="list-group">
+            <li class="list-group-item list-group-item-action list-group-item bg-danger flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ curso.titulo }} | Carga horária: {{ curso.carga_horaria }}h</h5>
+                </div>
+            </li>
+            <li class="list-group-item list-group-item-action list-group-item-danger flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Área temática</h5>
+                </div>
+                <p class="mb-1">{{ curso.area_tematica }}</p>
+            </li>
+            <li class="list-group-item list-group-item-action list-group-item-danger flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Ementa</h5>
+                </div>
+                <p class="mb-1">{{ curso.ementa }}</p>
+            </li>
+            <li class="list-group-item list-group-item-action list-group-item-danger flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Objetivo geral</h5>
+                </div>
+                <p class="mb-1">{{ curso.obj_geral }}</p>
+            </li>
+            <li class="list-group-item list-group-item-action list-group-item-danger flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Professor responsável</h5>
+                </div>
+                <p class="mb-1">{{ curso.professor_responsavel }}</p>
+            </li>
+        </lu>
+            <div class="mt-2">
+                {% if curso.status == 'APROVADO' %}
+                    <a class="btn btn-outline-secondary" href="" role="button">Cadastrar Tópico de Aula</a>
+                {% endif %}
+            </div>
+    </section>
+{% endblock %}
