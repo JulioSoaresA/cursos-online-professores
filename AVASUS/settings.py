@@ -21,8 +21,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Meus apps
+    'AVASUS',
     'professores',
     'usuarios',
+    'cursos',
 
     # Django apps
     'django.contrib.admin',
@@ -71,8 +73,8 @@ WSGI_APPLICATION = 'AVASUS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lais-backend',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'lais_backend',
         'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST': 'localhost'
@@ -131,3 +133,5 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
 }
+
+FIXTURE_DIRS = [BASE_DIR / 'fixtures']

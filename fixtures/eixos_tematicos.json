@@ -1,0 +1,44 @@
+[
+    {
+        "model": "cursos.AreaTematica",
+        "id": "1",
+        "fields": {
+            "nome": "Síflis e outras IST"
+        }},
+    {
+        "model": "cursos.AreaTematica",
+        "id": "2",
+        "fields": {
+            "nome": "Covid-19"
+        }},
+    {
+        "model": "cursos.AreaTematica",
+        "id": "3",
+        "fields": {
+            "nome": "Preceptoria"
+        }},
+    {
+        "model": "cursos.AreaTematica",
+        "id": "4",
+        "fields": {
+            "nome": "Doenças Raras"
+        }},
+    {
+        "model": "cursos.AreaTematica",
+        "id": "5",
+        "fields": {
+            "nome": "Web Palestas"
+        }},
+    {
+        "model": "cursos.AreaTematica",
+        "id": "6",
+        "fields": {
+            "nome": "Sistema Prisional"
+        }},
+    {
+        "model": "cursos.AreaTematica",
+        "id": "7",
+        "fields": {
+            "nome": "OPAS"
+        }}
+]
