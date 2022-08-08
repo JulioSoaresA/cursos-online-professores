@@ -29,10 +29,10 @@ Candidato: Júlio César Almeida Soares
 
 # Suporte de Avaliação
 ### História de Usuário #1 - Página Inicial *
- - [ ] CA#01 - Informações de Usuário Autenticado
- - [ ] CA#02 - Botão de encerrar sessão
- - [ ] CA#03 - Cadastro de novos planos de curso
- - [ ] CA#04 - Botões de Login e cadastre-se para Usuários não-autenticados
+ - [x] CA#01 - Informações de Usuário Autenticado
+ - [x] CA#02 - Botão de encerrar sessão
+ - [x] CA#03 - Cadastro de novos planos de curso
+ - [x] CA#04 - Botões de Login e cadastre-se para Usuários não-autenticados
 
 ### História de Usuário #2 - AutoCadastro *
  - [x] CA#01 - Campos de formulário de autocadastro
@@ -48,16 +48,16 @@ Candidato: Júlio César Almeida Soares
  - [x] CA#04 - Utilização do Sistema de Autenticação Django(UserCreationForm)
 
 ### História de Usuário #4 - Administração da plataforma *
- - [ ] CA#01 - Command para inserir todas as áreas temáticas
- - [ ] CA#02 - Listagem dos objetos inseridos
- - [ ] CA#03 - Status do plano de curso
+ - [x] CA#01 - Command para inserir todas as áreas temáticas
+ - [x] CA#02 - Listagem dos objetos inseridos
+ - [x] CA#03 - Status do plano de curso
  
  ### História de Usuário #5 - Planos de Curso *
- - [ ] CA#01 - Listar cursos
+ - [x] CA#01 - Listar cursos
  - [ ] CA#02 - Informações mais detalhadas dos cursos listados ao clicar
  - [ ] CA#03 - Botão de Cadastrar Tópicos de Aula
- - [ ] CA#04 - Botão de Submeter Novo Plano
- - [ ] CA#05 - Status de "Pendente de Aprovação"
+ - [x] CA#04 - Botão de Submeter Novo Plano
+ - [x] CA#05 - Status de "Pendente de Aprovação"
  
  ### História de Usuário #6 - Tópicos de Aula *
  - [ ] CA#01 - Apenas planos de curso APROVADOS terão tópicos de aula cadastrados
