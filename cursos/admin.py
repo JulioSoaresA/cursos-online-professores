@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import NovoPlano
+from django.db import models
+from .models import NovoPlano, NovoTopidoAula
+from markdownx.models import MarkdownxField
+from markdownx.widgets import AdminMarkdownxWidget
 
 
 class PlanosAdmin(admin.ModelAdmin):
@@ -11,4 +14,13 @@ class PlanosAdmin(admin.ModelAdmin):
     fieldsets = ()
 
 
+class TopicoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'titulo')
+    list_display_links = ('id', 'titulo')
+    formfield_overrides = {
+        MarkdownxField: {'widget': AdminMarkdownxWidget}
+    }
+
+
 admin.site.register(NovoPlano, PlanosAdmin)
+admin.site.register(NovoTopidoAula, TopicoAdmin)

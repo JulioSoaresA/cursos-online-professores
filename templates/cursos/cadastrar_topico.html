@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="container mt-2 col-8">
+        {% include 'partials/_menu.html' %}
+        <div class="contact-area section-padding-0-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading">
+                            <h2>Novo tópico de aula</h2>
+                        </div>
+                    </div>
+                </div>
+                {% include 'partials/_alertas.html' %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="contact-form-area">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="plano_curso" id="plano_curso" value="{{ plano.id }}"/>
+                                {% for field in form.visible_fields %}
+                                    <div class="form-group col-12 col-lg-12">
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                {% endfor %}
+                                    <div class="mt-2 col-12 text-center">
+                                        <button class="btn btn-outline-danger" type="submit">Criar novo tópico de aula</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

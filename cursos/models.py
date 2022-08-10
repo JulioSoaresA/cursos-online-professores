@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
+from markdownx.models import MarkdownxField
 
 
 class Avaliacao(models.TextChoices):
@@ -28,3 +29,19 @@ class NovoPlano(models.Model):
     ementa = models.CharField(verbose_name='Ementa', max_length=250)
     obj_geral = models.TextField(verbose_name='Objetivo geral', max_length=250)
     status = models.TextField(verbose_name='Status', choices=Avaliacao.choices, default=0)
+
+    def __str__(self):
+        return self.titulo
+
+
+class NovoTopidoAula(models.Model):
+    class Meta:
+        verbose_name = 'Tópicos de aula'
+
+    plano_curso = models.ForeignKey(NovoPlano, on_delete=models.CASCADE, related_name='plano')
+    professor_id = models.IntegerField()
+    titulo = models.CharField(verbose_name='Título', max_length=120)
+    descricao = MarkdownxField()
+
+    def __str__(self):
+        return self.titulo

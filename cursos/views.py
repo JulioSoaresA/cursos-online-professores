@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from cursos.forms.planoCursoForm import NovoPlanoCurso
-from .models import NovoPlano
+from cursos.forms.topicoForm import NovoTopico
+from .models import NovoPlano, NovoTopidoAula
 
 
 def plano_de_curso(request):
@@ -14,8 +15,11 @@ def plano_de_curso(request):
     else:
         form = NovoPlanoCurso(request.POST)
         if form.is_valid():
+
             form = NovoPlanoCurso()
+
             contexto = {'form': form}
+
             titulo = request.POST['titulo']
             area_tematica = request.POST['area_tematica']
             carga_horaria = request.POST['carga_horaria']
@@ -39,6 +43,54 @@ def campo_numerico(campo):
 
 
 def info_curso(request, plano_id):
+    """Informações do curso"""
+
     curso = get_object_or_404(NovoPlano.objects.all().filter(id=plano_id, id_professor=request.user.pk))
-    contexto = {'curso': curso}
+    topicos = NovoTopidoAula.objects.filter(plano_curso_id=plano_id, professor_id=request.user.pk).order_by('pk')
+    quantidade_topicos = NovoTopidoAula.objects.filter(plano_curso_id=plano_id, professor_id=request.user.pk).count()
+    print(quantidade_topicos)
+    contexto = {
+        'curso': curso,
+        'topicos': topicos,
+        'quantidade_topicos': quantidade_topicos
+    }
     return render(request, 'cursos/info_curso.html', contexto)
+
+
+def cadastrar_topico(request, plano_id):
+    """Cadastra um novo tópico de aula"""
+
+    plano = get_object_or_404(NovoPlano.objects.all().filter(pk=plano_id))
+    quantidade_topicos = NovoTopidoAula.objects.all().filter(plano_curso_id=plano_id, professor_id=request.user.pk).count()
+    if request.method == 'GET':
+        form = NovoTopico()
+
+        contexto = {
+            'form': form,
+            'plano': plano
+        }
+        if plano.status == 'REPROVADO':
+            messages.error(request, 'Plano RECUSADO, impossível cadastrar tópicos de aula.')
+        return render(request, 'cursos/cadastrar_topico.html', contexto)
+    else:
+        form = NovoTopico()
+
+        contexto = {
+            'form': form,
+            'plano': plano
+        }
+        titulo = request.POST['titulo']
+        descricao = request.POST['descricao']
+        plano_curso = request.POST.get('plano_curso')
+
+        if quantidade_topicos < 5 and plano.status == 'APROVADO':
+            novo_topico = NovoTopidoAula(professor_id=request.user.pk, plano_curso_id=plano_curso, titulo=titulo, descricao=descricao)
+            novo_topico.save()
+            messages.success(request, 'Tópico de aula cadastrado')
+            return render(request, 'cursos/cadastrar_topico.html', contexto)
+        elif plano.status == 'REPROVADO':
+            messages.error(request, 'Plano RECUSADO, impossível cadastrar tópicos de aula.')
+            return render(request, 'cursos/cadastrar_topico.html', contexto)
+        else:
+            messages.error(request, 'Quantidade máxima de tópicos excedida (MAX: 5 tópicos)')
+            return render(request, 'cursos/cadastrar_topico.html', contexto)

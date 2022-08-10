@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filter_tag %}
 {% block content %}
     <section class="container mt-2 col-8">
         {% include 'partials/_menu.html' %}
@@ -34,10 +35,40 @@
                 <p class="mb-1">{{ curso.professor_responsavel }}</p>
             </li>
         </lu>
-            <div class="mt-2">
-                {% if curso.status == 'APROVADO' %}
-                    <a class="btn btn-outline-secondary" href="" role="button">Cadastrar Tópico de Aula</a>
-                {% endif %}
-            </div>
+        <div class="mt-2">
+            {% if curso.status == 'APROVADO' and quantidade_topicos < 5 %}
+                <a class="btn btn-outline-secondary" href="{% url 'cadastrar_topico' curso.id %}" role="button">Cadastrar Tópico de Aula</a>
+            {% elif curso.status == 'APROVADO' and quantidade_topicos >= 5 %}
+                <button class="btn btn-outline-danger" disabled>Cadastrar Tópico de Aula</button>
+                <p class="text-danger">(Número máximo de tópicos atingido)</p>
+            {% endif %}
+        </div>
     </section>
+<!-- Informações dos tópicos de aula -->
+<section class="container mt-2 col-8">
+    <div class="my-2"><h2>Tópicos de aula</h2></div>
+    <div class="">
+        {% if topicos %}
+        {% for topico in topicos %}
+        <div class="card border-danger mb-3" >
+            <div class="card-header">
+                <h5 class="card-title">{{ topico.titulo }}</h5>
+            </div>
+            <div class="card-body text-danger">
+                <p class="card-text">{{ topico.descricao|converte_markdown|safe }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="card border-danger mb-3" style="max-width: 24rem;">
+            <div class="card-body text-danger text-center">
+                <p class="card-text">Sem tópicos cadastrados</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
+
 {% endblock %}
