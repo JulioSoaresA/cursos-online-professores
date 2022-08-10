@@ -24,6 +24,9 @@ Candidato: Júlio César Almeida Soares
     - Titulação (GRADUACAO, ESPECIALIZACAO, MESTRADO OU DOUTORADO)
     - Termos de uso (SIM ou NAO)
 
+- Carrege os dados de Áreas Temáticas<br>
+`python manage.py add_areas_tematicas`
+
 - Agora é so iniciar o servidor<br>
 `python .manage.py runserver`
 
@@ -54,16 +57,16 @@ Candidato: Júlio César Almeida Soares
  
  ### História de Usuário #5 - Planos de Curso *
  - [x] CA#01 - Listar cursos
- - [ ] CA#02 - Informações mais detalhadas dos cursos listados ao clicar
- - [ ] CA#03 - Botão de Cadastrar Tópicos de Aula
+ - [x] CA#02 - Informações mais detalhadas dos cursos listados ao clicar
+ - [x] CA#03 - Botão de Cadastrar Tópicos de Aula
  - [x] CA#04 - Botão de Submeter Novo Plano
  - [x] CA#05 - Status de "Pendente de Aprovação"
  
  ### História de Usuário #6 - Tópicos de Aula *
- - [ ] CA#01 - Apenas planos de curso APROVADOS terão tópicos de aula cadastrados
- - [ ] CA#02 - Máximo de 5 tópicos permitidos
- - [ ] CA#03 - Informações do tópico
- - [ ] CA#04 - Descrição habilitada para formatação Markdown
+ - [x] CA#01 - Apenas planos de curso APROVADOS terão tópicos de aula cadastrados
+ - [x] CA#02 - Máximo de 5 tópicos permitidos
+ - [x] CA#03 - Informações do tópico
+ - [x] CA#04 - Descrição habilitada para formatação Markdown
  
  ### História de Usuário #7 - Certificado de Cursos Ministrados *
  - [ ] CA#01 - Botão para gerar certificado
