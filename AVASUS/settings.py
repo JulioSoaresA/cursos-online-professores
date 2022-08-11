@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'cursos',
     'markdownx',
     'django.forms',
+    'captcha',
 
     # Django apps
     'django.contrib.admin',

@@ -73,5 +73,13 @@
                 </div>
                 {% endif %}
             </section>
+        <section class="container text-center mt-2 col-8">
+            <div class="btn-group mb-2" role="group">
+                <a class="btn btn-outline-secondary" href="{% url 'valida_certificado' %}" role="button" type="button">Validar certificado</a>
+                {% if quantidade_cursos_aprovados != 0 %}
+                <a class="btn btn-outline-danger" href="{% url 'gera_certificado' %}" role="button" type="button">Gerar certificado</a>
+                {% endif %}
+            </div>
+        </section>
         {% endif %}
 {% endblock %}

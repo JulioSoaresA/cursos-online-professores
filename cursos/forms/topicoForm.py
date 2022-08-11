@@ -1,12 +1,12 @@
 from django import forms
-from cursos.models import NovoTopidoAula
+from cursos.models import NovoTopicoAula
 from markdownx.widgets import MarkdownxWidget
 
 
 class NovoTopico(forms.ModelForm):
 
     class Meta:
-        model = NovoTopidoAula
+        model = NovoTopicoAula
         fields = ['titulo', 'descricao', 'plano_curso']
         labels = {'titulo': 'Título', 'descricao': 'Descrição'}
         exclude = ('professor_id', )

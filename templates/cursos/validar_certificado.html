@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        {% include 'partials/_menu.html' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-center">
+                    <h2>Validar certificado</h2>
+                </div>
+            </div>
+        </div>
+        {% include 'partials/_alertas.html' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area text-center">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <label for="token"><b>Token de validação</b></label>
+                                <input type="text" class="form-control" name="token" required>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="recaptcha"><b>reCAPTCHA</b></label>
+                                <div class="required field">
+                                    <div class="g-recaptcha" data-sitekey="6LfHUjghAAAAAHQawL1T69qMe0SnbuIG0pDujnc7"></div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center mt-4">
+                                <button class="btn btn-danger" type="submit">Validar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -10,6 +10,7 @@ urlpatterns = [
     path('usuarios/', include('usuarios.urls')),
     path('cursos/', include('cursos.urls')),
     path('markdownx/', include('markdownx.urls')),
+    path('captcha/', include('captcha.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

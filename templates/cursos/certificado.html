@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    {% include 'partials/_menu.html' %}
+    <div class="text-center p-5" >
+        <h1>Certificado de cursos ministrados</h1>
+        <h2>Nome: {{ user.nome_completo }}</h2>
+        <h2>CPF: {{ user.cpf }}</h2>
+        {% for curso in cursos %}
+        <div class="container mt-5">
+            <h3>{{curso.titulo}}</h3>
+            <p class="text-center">Área temática: {{ curso.area_tematica }}</p>
+            <p class="text-center">Carga horária: {{ curso.carga_horaria }} horas</p>
+            <p class="text-center">Data de criação: {{ curso.data_criacao }}</p>
+
+        </div>
+        {% endfor %}
+        <div class="container mt-5 text-center">
+            <p class="text-center">assinatura do diretor:</p>
+            <img src="{% static 'img/assinatura.jpg' %}" class="img-fluid rounded w-25" alt="Responsive image">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <p class="text-left">Token de validação: {{token}}</p>
+    <a class="btn btn-outline-secondary" href="{% url 'gera_pdf' %}" role="button">Gerar PDF</a>
+</div>
+{% endblock %}

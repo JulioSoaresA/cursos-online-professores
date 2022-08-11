@@ -2,12 +2,12 @@ from django import forms
 from cursos.models import NovoPlano, AreaTematica
 
 
-class NovoPlanoCurso(forms.ModelForm):
+class NovoPlanoForm(forms.ModelForm):
     area_tematica = forms.ModelChoiceField(queryset=AreaTematica.objects.all())
     class Meta:
         model = NovoPlano
         fields = '__all__'
-        exclude = ('id_professor', 'professor_responsavel', 'status')
+        exclude = ('id_professor', 'professor_responsavel', 'status', 'data_criacao')
         labels = {'titulo': 'Título',
                   'area_tematica': 'Área temática',
                   'carga_horaria': 'Carga horária',

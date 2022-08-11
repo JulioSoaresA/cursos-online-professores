@@ -25,16 +25,17 @@ class NovoPlano(models.Model):
     professor_responsavel = models.CharField(verbose_name='Professor responsável', max_length=150)
     titulo = models.CharField(verbose_name='Título', max_length=120)
     area_tematica = models.ForeignKey(AreaTematica, verbose_name='Áreas temáticas', on_delete=models.CASCADE)
-    carga_horaria = models.IntegerField(verbose_name='Carga horároia', validators=[MinValueValidator(3), MaxValueValidator(350)])
+    carga_horaria = models.IntegerField(verbose_name='Carga horária', validators=[MinValueValidator(3), MaxValueValidator(350)])
     ementa = models.CharField(verbose_name='Ementa', max_length=250)
     obj_geral = models.TextField(verbose_name='Objetivo geral', max_length=250)
+    data_criacao = models.DateTimeField(verbose_name='Data de criação')
     status = models.TextField(verbose_name='Status', choices=Avaliacao.choices, default=0)
 
     def __str__(self):
         return self.titulo
 
 
-class NovoTopidoAula(models.Model):
+class NovoTopicoAula(models.Model):
     class Meta:
         verbose_name = 'Tópicos de aula'
 
@@ -45,3 +46,18 @@ class NovoTopidoAula(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+class TokenValidacao(models.Model):
+    token = models.TextField(verbose_name='Token', max_length=32)
+
+    def __str__(self):
+        return self.token
+
+
+class TokenCertificado(models.Model):
+    professor_id = models.IntegerField()
+    token = models.TextField(verbose_name='Token', max_length=32)
+
+    def __str__(self):
+        return self.token

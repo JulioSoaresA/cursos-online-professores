@@ -69,13 +69,13 @@ Candidato: Júlio César Almeida Soares
  - [x] CA#04 - Descrição habilitada para formatação Markdown
  
  ### História de Usuário #7 - Certificado de Cursos Ministrados *
- - [ ] CA#01 - Botão para gerar certificado
- - [ ] CA#02 - Cabeçalho com nome e CPF do professor
- - [ ] CA#03 - Listagem de status
- - [ ] CA#04 - Código de unicidade
+ - [x] CA#01 - Botão para gerar certificado
+ - [x] CA#02 - Cabeçalho com nome e CPF do professor
+ - [x] CA#03 - Listagem de status
+ - [x] CA#04 - Código de unicidade
  - [ ] CA#05 - Exportar em PDF
 
 ## Não-Obrigatórias
 ### História de Usuário#8 - Validar o Certificado de Cursos Ministrados
- - [ ] CA#01 - Link para validação de certificado com 2 campos
- - [ ] CA#02 - Submissão do formulário apenas com os 2 campos preenchidos
+ - [x] CA#01 - Link para validação de certificado com 2 campos
+ - [x] CA#02 - Submissão do formulário apenas com os 2 campos preenchidos
