@@ -1,16 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from usuarios.models import Usuario
 from cursos.forms.planoCursoForm import NovoPlanoForm
 from cursos.forms.topicoForm import NovoTopico
 from .models import NovoPlano, NovoTopicoAula, TokenValidacao, TokenCertificado
 from cursos.forms.captchaForm import CaptchaForm
 from datetime import datetime
 import secrets
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
-import os
 import json
 import requests
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 
 def plano_de_curso(request):
@@ -131,11 +132,29 @@ def gera_certificado(request):
 
 
 def gera_pdf(request):
-    pasta_app = os.path.dirname(__file__)
-    cnv = canvas.Canvas(pasta_app+'\\certificado.pdf', pagesize=A4)
-    cnv.getCurrentPageContent()
-    cnv.save()
-    return redirect('gera_certificado')
+    user = get_object_or_404(Usuario.objects.filter(pk=request.user.pk))
+    cursos = NovoPlano.objects.filter(id_professor=request.user.pk, status='APROVADO').order_by('data_criacao')
+    token = get_object_or_404(TokenCertificado.objects.filter(professor_id=request.user.pk))
+
+    template_path = 'cursos/pdf.html'
+    context = {'cursos': cursos,
+               'user': user,
+               'token': token
+               }
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="certificado.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 
 def valida_certificado(request):

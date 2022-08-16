@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>AVASUS | Conhecimento livre e aberto</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            text-align: center;
+	    }
+
+	    p {
+          margin: 0px;
+        }
+
+        h1 {
+            font: 140% georgia, times, "times new roman", serif;
+            margin: 0px;
+        }
+
+        h2 {
+            color: #B52C07;
+            font: 140% georgia, times, "times new roman", serif;
+            margin: 0px;
+            }
+
+        h3 {
+            color: #7d8206;
+            font: 110% georgia, times, "times new roman", serif;
+            margin-bottom: 0px;
+            }
+
+	    img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 250px;
+            margin-top: 0px;
+        }
+
+
+        .contents {
+            margin: 0px;
+        }
+
+        .container {
+            width: 800px;
+            margin: 0 auto;
+
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header" >
+        <h1>Certificado de cursos ministrados</h1>
+        <h2>Nome: {{ user.nome_completo }}</h2>
+        <h2>CPF: {{ user.cpf }}</h2>
+    </div>
+    <br>
+    <br>
+    {% for curso in cursos %}
+    <div class="contents">
+        <h3>{{curso.titulo}}</h3>
+        <p>Área temática: {{ curso.area_tematica }}</p>
+        <p>Carga horária: {{ curso.carga_horaria }} horas</p>
+        <p>Data de criação: {{ curso.data_criacao }}</p>
+    </div>
+    <br>
+    <br>
+    <br>
+    {% endfor %}
+    <div>
+        <p>assinatura do diretor:</p>
+        <img src="static/img/assinatura.jpg">
+    </div>
+</div>
+
+<div>
+    <p>Token de validação: {{token}}</p>
+</div>
+</body>
+</html>
