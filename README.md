@@ -21,10 +21,10 @@ Candidato: Júlio César Almeida Soares
 		- CPF Válido ( [Gerador de CPF](https://www.4devs.com.br/gerador_de_cpf) )
 		- Data de Nascimento
 		- Senha
-    - Titulação (GRADUACAO, ESPECIALIZACAO, MESTRADO OU DOUTORADO)
-    - Termos de uso (SIM ou NAO)
+        - Titulação (GRADUACAO, ESPECIALIZACAO, MESTRADO OU DOUTORADO)
+        - Termos de uso (SIM ou NAO)
 
-- Carrege os dados de Áreas Temáticas<br>
+- Carregue os dados de Áreas Temáticas<br>
 `python manage.py add_areas_tematicas`
 
 - Agora é so iniciar o servidor<br>
@@ -73,7 +73,7 @@ Candidato: Júlio César Almeida Soares
  - [x] CA#02 - Cabeçalho com nome e CPF do professor
  - [x] CA#03 - Listagem de status
  - [x] CA#04 - Código de unicidade
- - [ ] CA#05 - Exportar em PDF
+ - [x] CA#05 - Exportar em PDF
 
 ## Não-Obrigatórias
 ### História de Usuário#8 - Validar o Certificado de Cursos Ministrados
