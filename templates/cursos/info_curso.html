@@ -51,10 +51,10 @@
         {% if topicos %}
         {% for topico in topicos %}
         <div class="card border-danger mb-3" >
-            <div class="card-header">
+            <div class="card-header bg-danger bg-gradient text-white">
                 <h5 class="card-title">{{ topico.titulo }}</h5>
             </div>
-            <div class="card-body text-danger">
+            <div class="card-body text-dark">
                 <p class="card-text">{{ topico.descricao|converte_markdown|safe }}</p>
             </div>
         </div>

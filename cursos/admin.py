@@ -7,6 +7,7 @@ from markdownx.widgets import AdminMarkdownxWidget
 class PlanosAdmin(admin.ModelAdmin):
     list_display = ('id', 'titulo', 'carga_horaria', 'area_tematica', 'professor_responsavel', 'status')
     list_display_links = ('id', 'titulo', )
+    search_fields = ('titulo', )
     readonly_fields = ('id_professor', 'titulo', 'carga_horaria', 'ementa', 'obj_geral', 'area_tematica', 'professor_responsavel', 'data_criacao')
     list_filter = ('titulo', 'area_tematica')
     filter_horizontal = ()

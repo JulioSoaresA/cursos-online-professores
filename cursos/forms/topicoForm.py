@@ -3,7 +3,7 @@ from cursos.models import NovoTopicoAula
 from markdownx.widgets import MarkdownxWidget
 
 
-class NovoTopico(forms.ModelForm):
+class NovoTopicoForm(forms.ModelForm):
 
     class Meta:
         model = NovoTopicoAula

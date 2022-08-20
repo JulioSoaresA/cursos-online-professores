@@ -1,42 +1,48 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-    <section class="container mt-2 col-8">
-        {% include 'partials/_menu.html' %}
-        <div class="contact-area section-padding-0-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-heading">
-                            <h2>Novo plano de curso</h2>
-                        </div>
+<!-- Modal -->
+<div class="modal fade" id="addPlano" tabindex="-1" aria-labelledby="meuModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPlanoLabel">Novo plano de curso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'plano_de_curso' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-12">
+                        <label for="id_titulo" class="form-label">Título</label>
+                        <input name="titulo" type="text" class="form-control" id="titulo" placeholder="Insira um título">
                     </div>
-                </div>
-                {% include 'partials/_alertas.html' %}
-                <div class="row">
-                    <div class="col-12">
-                        <div class="contact-form-area">
-                            <form action="{% url 'plano_de_curso' %}" method="POST">
-                                {% csrf_token %}
-                                {% for field in form.visible_fields %}
-                                    <div class="form-group">
-                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                        {{ field }}
-                                    </div>
-                                {% for error in field.errors %}
-                                    <section class="alert alert-danger" role="alert">
-                                        {{ field.errors }}
-                                    </section>
-                                {% endfor %}
-                                {% endfor %}
-                                    <div class="mt-2 col-12 text-center">
-                                        <button class="btn btn-outline-danger" type="submit">Criar novo plano de curso</button>
-                                    </div>
-                            </form>
-                        </div>
+
+                    <div class="col-md-12">
+                        <label for="id_area_tematica" class="form-label">Área temática</label>
+                        <select name="area_tematica" id="area_tematica" class="form-control">
+                            {% for area_tematica in areas_tematicas %}
+                            <option value="{{area_tematica.id}}">{{ area_tematica.nome }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                </div>
+
+                    <div class="col-md-12">
+                        <label for="id_carga_horaria" class="form-label">Carga horária</label>
+                        <input name="carga_horaria" type="text" class="form-control" id="carga_horaria" placeholder="Insira um valor entre 3 hrs  e 350 hrs">
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label for="id_ementa" class="form-label">Ementa</label>
+                        <textarea name="ementa" class="form-control" id="ementa" rows="5" style="height: 100%"></textarea>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="id_obj_geral" class="form-label">Objetivo geral</label>
+                        <textarea name="obj_geral" class="form-control" id="obj_geral" rows="5" style="height: 100%;"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-danger">Salvar</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
-{% endblock %}
+    </div>
+</div>

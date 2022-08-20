@@ -1,85 +1,125 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <!-- Infiormações de usuário -->
-    <section class="container text-center mt-2 col-8">
-        {% include 'partials/_menu.html' %}
-        <div class="my-5"><h1>Bem vindo ao AVASUS</h1></div>
-        {% if user.is_authenticated %}
-            <div class="card text-white bg-danger mb-3" style="max-width: 72rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Informações de Usuário</h5>
-                    <table class="table table-sm text-white">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Nome Completo</th>
-                            <td>{{ user.nome_completo }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Data de Nascimento</th>
-                            <td>
-                                {{ user.data_nascimento }}
-                                &ensp;( {{ user.get_idade }} anos )
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">CPF</th>
-                            <td>
-                                {{ user.cpf }}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<!-- Infiormações de usuário -->
+<section class="container text-center mt-2 col-8">
+    {% include 'partials/_menu.html' %}
+    <div class="my-5"><h1>Bem vindo ao AVASUS</h1></div>
+    {% if user.is_authenticated %}
+    {% include 'partials/_alertas.html' %}
+    <div class="card text-white bg-danger mb-3" style="max-width: 72rem;">
+        <div class="card-body">
+            <h5 class="card-title">Informações de Usuário</h5>
+            <table class="table table-sm text-white">
+                <tbody>
+                <tr>
+                    <th scope="row">Nome Completo</th>
+                    <td>{{ user.nome_completo }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Data de Nascimento</th>
+                    <td>
+                        {{ user.data_nascimento }}
+                        &ensp;( {{ user.get_idade }} anos )
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">CPF</th>
+                    <td>
+                        {{ user.cpf }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-            </section>
-            <!-- Informações dos cursos -->
-            <section class="container text-center mt-2 col-8">
-                <div class="my-2"><h2>Cursos misistrados</h2></div>
-                <div class="my-3">
-                <a class="btn btn-outline-secondary" href="{% url 'plano_de_curso' %}" role="button">Submeter Novo Plano</a>
-                </div>
-                <div class="card-group d-flex justify-content-center">
-                {% if planos %}
-                {% for plano in planos %}
-                    <div class="card border-danger mb-3" style="max-width: 24rem;">
-                        <div class="card-body text-danger">
-                            <h5 class="card-title">{{ plano.titulo }}</h5>
-                            <p class="card-text">{{ plano.obj_geral }}</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-danger text-center">
-                            <div class="btn-group" role="group">
-                                <a class="btn btn-outline-danger" href="{% url 'info_curso' plano.id %}" role="button" type="button">Ver mais</a>
-                                {% if plano.status == 'APROVADO' %}
-                                    <button class="btn btn-outline-success" disabled>Aprovado</button>
-                                {% elif plano.status == 'REPROVADO' %}
-                                    <button class="btn btn-outline-danger" disabled>Recusado</button>
-                                {% else %}
-                                    <button class="btn btn-outline-secondary" disabled>Pendente de Aprovação</button>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-                {% else %}
-                </div>
-                <div class="d-flex justify-content-center">
-                    <div class="card border-danger mb-3" style="max-width: 24rem;">
-                        <div class="card-body text-danger text-center">
-                            <p class="card-text">Sem cursos ministrados no momento</p>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            </section>
-        <section class="container text-center mt-2 col-8">
-            <div class="btn-group mb-2" role="group">
-                <a class="btn btn-outline-secondary" href="{% url 'valida_certificado' %}" role="button" type="button">Validar certificado</a>
-                {% if quantidade_cursos_aprovados != 0 %}
-                <a class="btn btn-outline-danger" href="{% url 'gera_certificado' %}" role="button" type="button">Gerar certificado</a>
-                {% endif %}
+</section>
+<!-- Informações dos cursos -->
+<section class="container text-center mt-2 col-8">
+    <div class="my-2"><h2>Cursos misistrados</h2></div>
+    <div class="my-3">
+        <div class="mb-3">
+            <!-- Button trigger modal -->
+            <a class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addPlano" role="button">Submeter Novo Plano</a>
+        </div>
+    <div class="card-group d-flex justify-content-center">
+        {% if planos %}
+        {% for plano in planos %}
+        <div class="card border-danger mb-3" style="max-width: 24rem;">
+            <div class="card-body text-danger">
+                <h5 class="card-title">{{ plano.titulo }}</h5>
+                <p class="card-text">{{ plano.obj_geral }}</p>
             </div>
-        </section>
+            <div class="card-footer bg-transparent border-danger text-center">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-outline-danger" href="{% url 'info_curso' plano.id %}" role="button" type="button">Ver mais</a>
+                    {% if plano.status == 'APROVADO' %}
+                    <button class="btn btn-outline-success" disabled>Aprovado</button>
+                    {% elif plano.status == 'REPROVADO' %}
+                    <button class="btn btn-outline-danger" disabled>Recusado</button>
+                    {% else %}
+                    <button class="btn btn-outline-secondary" disabled>Pendente de Aprovação</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="card border-danger mb-3" style="max-width: 24rem;">
+            <div class="card-body text-danger text-center">
+                <p class="card-text">Sem cursos ministrados no momento</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
+<nav aria-label="Page navigation">
+    <div class="container">
+        {% if planos.has_other_pages %}
+        <ul class="pagination  justify-content-center">
+            {% if planos.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ planos.previous_page_number }}" class="page-link">&laquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">&laquo;</a>
+            </li>
+            {% endif %}
+            {% for pagina in planos.paginator.page_range %}
+            {% if planos.number == pagina %}
+            <li class="page-item active">
+                <a class="page-link">{{ pagina }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a href="?page={{ pagina }}" class="page-link">{{ pagina }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if planos.has_next %}
+            <li class="page-item">
+                <a href="?page={{ planos.next_page_number }}" class="page-link">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">&raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
         {% endif %}
+    </div>
+</nav>
+<section class="container text-center mt-2 col-8">
+    <div class="btn-group mb-2" role="group">
+        <a class="btn btn-outline-secondary" href="{% url 'valida_certificado' %}" role="button" type="button">Validar certificado</a>
+        {% if quantidade_cursos_aprovados != 0 %}
+        <a class="btn btn-outline-danger" href="{% url 'gera_certificado' %}" role="button" type="button">Gerar certificado</a>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
 {% endblock %}

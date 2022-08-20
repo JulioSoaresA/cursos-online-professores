@@ -26,8 +26,8 @@ class NovoPlano(models.Model):
     titulo = models.CharField(verbose_name='Título', max_length=120)
     area_tematica = models.ForeignKey(AreaTematica, verbose_name='Áreas temáticas', on_delete=models.CASCADE)
     carga_horaria = models.IntegerField(verbose_name='Carga horária', validators=[MinValueValidator(3), MaxValueValidator(350)])
-    ementa = models.CharField(verbose_name='Ementa', max_length=250)
-    obj_geral = models.TextField(verbose_name='Objetivo geral', max_length=250)
+    ementa = models.TextField(verbose_name='Ementa')
+    obj_geral = models.TextField(verbose_name='Objetivo geral')
     data_criacao = models.DateTimeField(verbose_name='Data de criação')
     status = models.TextField(verbose_name='Status', choices=Avaliacao.choices, default=0)
 

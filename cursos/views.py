@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from usuarios.models import Usuario
 from cursos.forms.planoCursoForm import NovoPlanoForm
-from cursos.forms.topicoForm import NovoTopico
+from cursos.forms.topicoForm import NovoTopicoForm
 from .models import NovoPlano, NovoTopicoAula, TokenValidacao, TokenCertificado
 from cursos.forms.captchaForm import CaptchaForm
 from datetime import datetime
@@ -15,40 +15,38 @@ from xhtml2pdf import pisa
 
 
 def plano_de_curso(request):
+
     """Cadastra um novo plano de curso"""
+    form = NovoPlanoForm(request.POST)
 
-    if request.method == 'GET':
-        form = NovoPlanoForm()
-        contexto = {'form': form}
-        return render(request, 'cursos/plano_de_curso.html', contexto)
+    if form.is_valid():
+
+        titulo = request.POST['titulo']
+        area_tematica = request.POST['area_tematica']
+        carga_horaria = request.POST['carga_horaria']
+        ementa = request.POST['ementa']
+        obj_geral = request.POST['obj_geral']
+        if NovoPlano.objects.all().filter(titulo=titulo).exists():
+            messages.error(request, 'Este título já existe')
+            return redirect('index')
+        id_professor = request.user.pk
+        professor_responsavel = request.user.nome_completo
+        novo_plano = NovoPlano.objects.create(id_professor=id_professor,
+                                              professor_responsavel=professor_responsavel, titulo=titulo,
+                                              area_tematica_id=area_tematica, carga_horaria=carga_horaria,
+                                              ementa=ementa, obj_geral=obj_geral, status='AGUARDANDO_AVALIACAO',
+                                              data_criacao=datetime.now())
+        novo_plano.save()
+        messages.success(request, 'Novo plano cadastrado com sucesso')
+        return redirect('index')
     else:
-        form = NovoPlanoForm(request.POST)
-        if form.is_valid():
-
-            form = NovoPlanoForm()
-
-            contexto = {'form': form}
-
-            titulo = request.POST['titulo']
-            area_tematica = request.POST['area_tematica']
-            carga_horaria = request.POST['carga_horaria']
-            ementa = request.POST['ementa']
-            obj_geral = request.POST['obj_geral']
-            if campo_numerico(carga_horaria):
-                messages.error(request, 'Insira um valor numérico.')
-            id_professor = request.user.pk
-            professor_responsavel = request.user.nome_completo
-            novo_plano = NovoPlano.objects.create(id_professor=id_professor, professor_responsavel=professor_responsavel, titulo=titulo, area_tematica_id=area_tematica, carga_horaria=carga_horaria, ementa=ementa, obj_geral=obj_geral, status='AGUARDANDO_AVALIACAO', data_criacao=datetime.now())
-            novo_plano.save()
-            messages.success(request, 'Novo plano cadastrado com sucesso')
-            return render(request, 'cursos/plano_de_curso.html', contexto)
+        carga_horaria = int(request.POST['carga_horaria'])
+        if carga_horaria < 3 or carga_horaria > 350:
+            messages.error(request, 'Carga horária fora do limite permitido')
+            return redirect('index')
         else:
-            contexto = {'form': form}
-            return render(request, 'cursos/plano_de_curso.html', contexto)
-
-
-def campo_numerico(campo):
-    return not campo.isnumeric()
+            messages.error(request, 'Porfavor, preencha todos os campos.')
+            return redirect('index')
 
 
 def info_curso(request, plano_id):
@@ -72,7 +70,7 @@ def cadastrar_topico(request, plano_id):
     plano = get_object_or_404(NovoPlano.objects.all().filter(pk=plano_id))
     quantidade_topicos = NovoTopicoAula.objects.all().filter(plano_curso_id=plano_id, professor_id=request.user.pk).count()
     if request.method == 'GET':
-        form = NovoTopico()
+        form = NovoTopicoForm()
 
         contexto = {
             'form': form,
@@ -82,7 +80,7 @@ def cadastrar_topico(request, plano_id):
             messages.error(request, 'Plano RECUSADO, impossível cadastrar tópicos de aula.')
         return render(request, 'cursos/cadastrar_topico.html', contexto)
     else:
-        form = NovoTopico()
+        form = NovoTopicoForm()
 
         contexto = {
             'form': form,
@@ -92,13 +90,16 @@ def cadastrar_topico(request, plano_id):
         descricao = request.POST['descricao']
         plano_curso = request.POST.get('plano_curso')
 
-        if quantidade_topicos < 5 and plano.status == 'APROVADO':
+        if quantidade_topicos < 5 and plano.status == 'APROVADO' and not NovoTopicoAula.objects.all().filter(titulo=titulo).exists():
             novo_topico = NovoTopicoAula(professor_id=request.user.pk, plano_curso_id=plano_curso, titulo=titulo, descricao=descricao)
             novo_topico.save()
             messages.success(request, 'Tópico de aula cadastrado')
             return render(request, 'cursos/cadastrar_topico.html', contexto)
         elif plano.status == 'REPROVADO':
             messages.error(request, 'Plano RECUSADO, impossível cadastrar tópicos de aula.')
+            return render(request, 'cursos/cadastrar_topico.html', contexto)
+        elif NovoTopicoAula.objects.all().filter(titulo=titulo).exists():
+            messages.error(request, 'Titulo já existente.')
             return render(request, 'cursos/cadastrar_topico.html', contexto)
         else:
             messages.error(request, 'Quantidade máxima de tópicos excedida (MAX: 5 tópicos)')

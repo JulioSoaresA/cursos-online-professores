@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container">
+<section class="container text-center mt-2 col-8">
     {% include 'partials/_menu.html' %}
     <div class="text-center p-5" >
         <h1>Certificado de cursos ministrados</h1>
@@ -21,7 +21,7 @@
             <img src="{% static 'img/assinatura.jpg' %}" class="img-fluid rounded w-25" alt="Responsive image">
         </div>
     </div>
-</div>
+</section>
 
 <div class="container">
     <p class="text-left">Token de validação: {{token}}</p>
