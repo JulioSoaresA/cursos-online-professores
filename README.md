@@ -8,10 +8,12 @@ Candidato: Júlio César Almeida Soares
 - Baixe esse repositório e Entre no diretório respectivo
 - Utilize um VirtualEnvironment<br>
 `python -m venv venv`
+- Instale as dependências necessárias<br>
+`pip install -r requirements.txt`
 
 
 ### Passos Iniciais para Funcionamento do Projeto
- - Crie e Execute de migrations para o banco de dados<br>
+ - Crie e Execute as migrations para o banco de dados<br>
 `python manage.py makemigrations`<br>
 `python manage.py migrate`
 
